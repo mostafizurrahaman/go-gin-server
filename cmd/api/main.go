@@ -15,20 +15,20 @@ func main() {
 	cfg, err := config.Load()
 
 	if err != nil {
-		log.Fatalf("Failed to load env. %w", err)
+		log.Println("Failed to load env. %w", err)
 	}
 
 	// ?? Setup database connection:
 	mgClient, database, err := db.Connect(cfg)
 	if err != nil {
-		log.Fatalf("Failed to connect db. %w", err)
+		fmt.Println("Failed to connect db. %w", err)
 	}
 
 	r := server.NewRouter(database)
 
-	addr := fmt.Sprint(":5000")
+	addr := fmt.Sprintf(":%s", cfg.Port)
 	if err := r.Run(addr); err != nil {
-		log.Fatalf("Failed to run server. %w", err)
+		log.Println("Failed to run server. %w", err)
 	}
 
 	defer db.Disconnect(mgClient)
