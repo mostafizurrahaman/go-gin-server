@@ -4,9 +4,10 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
-func NewRouter() *gin.Engine {
+func NewRouter(db *mongo.Database) *gin.Engine {
 
 	r := gin.Default()
 
