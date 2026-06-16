@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/mostafizurrahaman/go_server/internal/notes"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
@@ -20,6 +21,9 @@ func NewRouter(db *mongo.Database) *gin.Engine {
 		})
 
 	})
+
+	// ?? Register notes group :
+	notes.RegisterNoteRoutes(r, db)
 
 	return r
 

@@ -57,7 +57,7 @@ func (h *Handler) CreateNote(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusBadRequest, gin.H{
+	c.JSON(http.StatusCreated, gin.H{
 		"success": false,
 		"message": "Note saved successfully into db!",
 		"data":    newNote,
