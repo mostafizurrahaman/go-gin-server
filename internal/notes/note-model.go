@@ -20,3 +20,20 @@ type CreateNewNote struct {
 	Content string `json:"content" binding:"required,min=3"`
 	Pinned  bool   `json:"pinned"`
 }
+
+type TSortOrder string
+
+const (
+	ASC  TSortOrder = "asc"
+	DESC TSortOrder = "desc"
+)
+
+type FilterParams struct {
+	Page       int        `form:"page" binding:"required,min=1"`
+	Limit      int        `form:"limit" binding:"required,min=1"`
+	SearchTerm string     `form:"searchTerm" `
+	FromDate   *time.Time `form:"fromDate"`
+	ToDate     *time.Time `form:"toDate"`
+	SortBy     string     `form:"sortBy"`
+	SortOrder  TSortOrder `form:"sortOrder"`
+}
