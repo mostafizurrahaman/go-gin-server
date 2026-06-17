@@ -17,6 +17,7 @@ func RegisterNoteRoutes(r *gin.Engine, db *mongo.Database) {
 
 	{
 		noteGroup.POST("/", handler.CreateNote)
+		noteGroup.GET("/list", handler.GetNoteList)
 	}
 
 }
