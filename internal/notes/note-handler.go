@@ -64,3 +64,46 @@ func (h *Handler) CreateNote(c *gin.Context) {
 	})
 
 }
+
+func (h *Handler) GetNoteList(c *gin.Context) {
+
+	// Extract query:
+
+	var query FilterParams
+
+	if err := c.ShouldBindQuery(&query); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": false,
+			"message": err.Error(),
+			"data":    nil,
+		})
+		return
+	}
+
+	notes, err := h.repo.GetNoteList(c.Request.Context(), query)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": false,
+			"message": err.Error(),
+			"data":    nil,
+		})
+		return
+	}
+
+	if notes == nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"message": "All notes retrived successfully.",
+			"data":    []Note{},
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"message": "All notes retrived successfully.",
+		"data":    notes,
+	})
+
+}
